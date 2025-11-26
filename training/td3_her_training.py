@@ -3,6 +3,7 @@ import gymnasium as gym
 import panda_gym
 from agents.td3 import TD3Agent
 from utils.HER import her_augmentation
+from utils.six_dof_wrapper import SixDOFWrapper
 
 if __name__ == "__main__":
 
@@ -12,7 +13,9 @@ if __name__ == "__main__":
     score_history = []
     avg_score_history = []
     
+    # Create environment and wrap it to use 6 DOF instead of 7 DOF
     env = gym.make('PandaReach-v3')
+    env = SixDOFWrapper(env)
     obs_shape = env.observation_space['observation'].shape[0] + \
                 env.observation_space['achieved_goal'].shape[0] + \
                 env.observation_space['desired_goal'].shape[0]

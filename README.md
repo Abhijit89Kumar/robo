@@ -2,7 +2,9 @@
 
 ![anim](https://github.com/kaymen99/Robot-arm-control-with-RL/assets/83681204/224cf960-43d8-4bdc-83be-ac8fe37e5be9)
 
-This project focuses on controlling a 7 DOF robot arm provided in the [pandas_gym](https://github.com/qgallouedec/panda-gym) Reacher environment using two continuous reinforcement learning algorithms: DDPG (Deep Deterministic Policy Gradients) and TD3 (Twin Delayed Deep Deterministic Policy Gradients). The technique of Hindsight Experience Replay is used to enhance the learning process of both algorithms.
+This project focuses on controlling a 6 DOF robot arm (converted from the 7 DOF Panda robot) provided in the [pandas_gym](https://github.com/qgallouedec/panda-gym) Reacher environment using two continuous reinforcement learning algorithms: DDPG (Deep Deterministic Policy Gradients) and TD3 (Twin Delayed Deep Deterministic Policy Gradients). The technique of Hindsight Experience Replay is used to enhance the learning process of both algorithms.
+
+**Note:** The original Panda robot is a 7 DOF robot, but this implementation uses a custom wrapper (`SixDOFWrapper`) to constrain it to 6 DOF by fixing one joint (joint 3, the redundant elbow joint) at a neutral position. This simplifies the control problem while maintaining the robot's ability to reach target positions.
 
 ## Continuous RL Algorithms
 

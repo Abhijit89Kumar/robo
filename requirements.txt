@@ -1,0 +1,19 @@
+# Core Deep Learning Framework
+tensorflow>=2.10.0
+
+# Reinforcement Learning Environment
+gymnasium>=0.29.0
+panda-gym>=3.0.7
+
+# Numerical Computing
+numpy>=1.23.0
+
+# Animation/Visualization (for saving GIFs)
+numpngw>=0.1.2
+
+# IPython (usually pre-installed in Colab/Jupyter)
+ipython>=8.0.0
+
+# PyBullet (physics engine - dependency of panda-gym)
+pybullet>=3.2.5
+
