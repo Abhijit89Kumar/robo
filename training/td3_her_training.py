@@ -39,7 +39,7 @@ if __name__ == "__main__":
             state = np.concatenate((curr_obs, curr_achgoal, curr_desgoal))
 
             # Choose an action
-            action = agent.choose_action(state, False)
+            action = agent.choose_action(state)
 
             # Excute the choosen action in the environement
             new_observation, reward, done, truncated, _ = env.step(np.array(action))

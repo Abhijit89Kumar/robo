@@ -65,4 +65,19 @@ class SixDOFWrapper(gym.Wrapper):
     def reset(self, **kwargs):
         """Reset the environment."""
         return self.env.reset(**kwargs)
+    
+    def compute_reward(self, achieved_goal, desired_goal, info):
+        """
+        Compute reward from the underlying environment.
+        This is needed for HER (Hindsight Experience Replay).
+        
+        Args:
+            achieved_goal: The achieved goal
+            desired_goal: The desired goal
+            info: Additional info
+            
+        Returns:
+            reward: The computed reward
+        """
+        return self.env.compute_reward(achieved_goal, desired_goal, info)
 
