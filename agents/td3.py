@@ -44,12 +44,14 @@ class TD3Agent:
         self.n_actions = env.action_space.shape[0]
         self.max_action = env.action_space.high[0]
         self.min_action = env.action_space.low[0]
+        self.input_dims = input_dims
 
         # setup replay buffer memory
         self.memory = ReplayBuffer(max_size, input_dims, self.n_actions)
 
         # initialize actor and critic netwprks
         self._initialize_networks(self.n_actions)
+        self._build_networks()
         self.update_parameters(tau=1)
 
     def choose_action(self, observation):
@@ -233,3 +235,14 @@ class TD3Agent:
         for i, weight in enumerate(source_network.weights):
             weights.append(tau * weight + (1 - tau) * target_weights[i])
         target_network.set_weights(weights)
+
+    def _build_networks(self):
+        dummy_state = tf.zeros((1, self.input_dims), dtype=tf.float32)
+        dummy_action = tf.zeros((1, self.n_actions), dtype=tf.float32)
+        # Forward passes to ensure weights are created before training
+        self.actor(dummy_state)
+        self.target_actor(dummy_state)
+        self.critic_1(dummy_state, dummy_action)
+        self.critic_2(dummy_state, dummy_action)
+        self.target_critic_1(dummy_state, dummy_action)
+        self.target_critic_2(dummy_state, dummy_action)

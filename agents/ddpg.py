@@ -40,10 +40,12 @@ class DDPGAgent:
         self.n_actions = env.action_space.shape[0]
         self.max_action = env.action_space.high[0]
         self.min_action = env.action_space.low[0]
+        self.input_dims = input_dims
 
         self.memory = ReplayBuffer(max_size, input_dims, self.n_actions)
 
         self._initialize_networks(self.n_actions)
+        self._build_networks()
         self.update_parameters(tau=1)
 
     # Choose action based on actor network
@@ -142,3 +144,12 @@ class DDPGAgent:
         self.critic.compile(keras.optimizers.Adam(learning_rate=beta))
         self.target_actor.compile(keras.optimizers.Adam(learning_rate=alpha))
         self.target_critic.compile(keras.optimizers.Adam(learning_rate=beta))
+
+    def _build_networks(self):
+        dummy_state = tf.zeros((1, self.input_dims), dtype=tf.float32)
+        dummy_action = tf.zeros((1, self.n_actions), dtype=tf.float32)
+        # Forward passes to ensure weights are created before training
+        self.actor(dummy_state)
+        self.target_actor(dummy_state)
+        self.critic(dummy_state, dummy_action)
+        self.target_critic(dummy_state, dummy_action)
