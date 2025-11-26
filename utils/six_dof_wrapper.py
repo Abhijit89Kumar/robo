@@ -79,5 +79,7 @@ class SixDOFWrapper(gym.Wrapper):
         Returns:
             reward: The computed reward
         """
-        return self.env.compute_reward(achieved_goal, desired_goal, info)
+        # Access the unwrapped environment to get compute_reward method
+        # The env might be wrapped by TimeLimit or other wrappers
+        return self.env.unwrapped.compute_reward(achieved_goal, desired_goal, info)
 
